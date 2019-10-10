@@ -67,6 +67,7 @@
 									<listOptionValue builtIn="false" value="../App"/>
 									<listOptionValue builtIn="false" value="../Mcu/Inc"/>
 									<listOptionValue builtIn="false" value="../Drivers/BSP/SX1272MB2DAS"/>
+									<listOptionValue builtIn="false" value="../Drivers/"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1165341983" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>
