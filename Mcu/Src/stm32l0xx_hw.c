@@ -37,6 +37,9 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include "bsp.h"
 #include "vcom.h"
 
+/* Sensor Includes */
+#include "Sensors/CapaciativeMoisture/cap_moisture.h"
+
 /*!
  *  \brief Unique Devices IDs register set ( STM32L0xxx )
  */
@@ -113,6 +116,8 @@ void HW_Init( void )
     TraceInit( );
     
     BSP_sensor_Init( );
+
+    // cap_moist_init(&hadc);
 
     McuInitialized = true;
   }
@@ -222,6 +227,15 @@ void SystemClock_Config( void )
   {
     Error_Handler();
   }
+
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C1;
+  	  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  	  {
+  		  Error_Handler();
+  	  }
+
 }
 /**
   * @brief This function return a random seed

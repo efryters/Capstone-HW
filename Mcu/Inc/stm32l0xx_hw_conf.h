@@ -48,52 +48,6 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 /* LORA I/O definition */
 
-#ifdef USE_SX126X_DVK
-
-#define RADIO_RESET_PORT                          GPIOA
-#define RADIO_RESET_PIN                           GPIO_PIN_0
-
-#define RADIO_MOSI_PORT                           GPIOA
-#define RADIO_MOSI_PIN                            GPIO_PIN_7
-
-#define RADIO_MISO_PORT                           GPIOA
-#define RADIO_MISO_PIN                            GPIO_PIN_6
-
-#define RADIO_SCLK_PORT                           GPIOA
-#define RADIO_SCLK_PIN                            GPIO_PIN_5
-
-#define RADIO_NSS_PORT                            GPIOA
-#define RADIO_NSS_PIN                             GPIO_PIN_8
-
-#define RADIO_BUSY_PORT                           GPIOB
-#define RADIO_BUSY_PIN                            GPIO_PIN_3
-
-#define RADIO_DIO_0_PORT                          GPIOA
-#define RADIO_DIO_0_PIN                           GPIO_PIN_10
-
-#define RADIO_DIO_1_PORT                          GPIOB
-#define RADIO_DIO_1_PIN                           GPIO_PIN_4
-
-#define RADIO_DIO_2_PORT                          GPIOB
-#define RADIO_DIO_2_PIN                           GPIO_PIN_5
-
-#define RADIO_DIO_3_PORT                          GPIOB
-#define RADIO_DIO_3_PIN                           GPIO_PIN_4
-
-#define RADIO_ANT_SWITCH_POWER_PORT               GPIOA
-#define RADIO_ANT_SWITCH_POWER_PIN                GPIO_PIN_9
-
-#define DEVICE_SEL_PORT                           GPIOA
-#define DEVICE_SEL_PIN                            GPIO_PIN_4
-
-#define RADIO_LEDTX_PORT                           GPIOC
-#define RADIO_LEDTX_PIN                            GPIO_PIN_1
-
-#define RADIO_LEDRX_PORT                           GPIOC
-#define RADIO_LEDRX_PIN                            GPIO_PIN_0
-
-#else
-
 
 #define RADIO_RESET_PORT                          GPIOA
 #define RADIO_RESET_PIN                           GPIO_PIN_0
@@ -136,8 +90,6 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 #define RADIO_ANT_SWITCH_PORT                     GPIOC
 #define RADIO_ANT_SWITCH_PIN                      GPIO_PIN_1
-
-#endif
 
 /*  SPI MACRO redefinition */
 
@@ -197,6 +149,16 @@ Maintainer: Miguel Luis and Gregory Cristian
 #define LED_Toggle( x )
 #define LED_On( x )
 #define LED_Off( x )
+
+/* --------------------------- I2C HW definition -------------------------------- */
+#define I2C_PIN_SDA 		GPIO_PIN_9
+#define I2C_PIN_SCL 		GPIO_PIN_8
+#define I2C_PIN_SDA_PORT 	GPIOB
+#define I2C_PIN_SCL_PORT 	GPIOB
+
+#define I2C_LUX_HW_ADDR 	0x4A << 1
+
+
 
 #ifdef __cplusplus
 }
