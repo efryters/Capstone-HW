@@ -26,6 +26,8 @@
 #include "vcom.h"
 #include "version.h"
 
+#include "Sensors/CapaciativeMoisture/cap_moisture.h"
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 
@@ -42,7 +44,7 @@
 /*!
  * Defines the application data transmission duty cycle. 5s, value in [ms].
  */
-#define APP_TX_DUTYCYCLE                            10000 * 6
+#define APP_TX_DUTYCYCLE                            10000
 /*!
  * LoRaWAN Adaptive Data Rate
  * @note Please note that when ADR is enabled the end-device should be static
@@ -164,6 +166,7 @@ int main( void )
   HW_Init();
   
   /* USER CODE BEGIN 1 */
+
   /* USER CODE END 1 */
   
   /*Disbale Stand-by mode*/
@@ -260,6 +263,8 @@ static void Send( void* context )
 #endif
 
   BSP_sensor_Read( &sensor_data );
+  uint16_t cap_moistReading = HW_AdcReadChannel( ADC_CHANNEL_1 );
+
 
 #ifdef CAYENNE_LPP
   uint8_t cchannel=0;
@@ -307,17 +312,22 @@ static void Send( void* context )
   AppData.Port = LORAWAN_APP_PORT;
 
 #if defined( REGION_US915 ) || defined ( REGION_AU915 ) || defined ( REGION_AS923 )
-  AppData.Buff[i++] = AppLedStateOn;
-  AppData.Buff[i++] = ( pressure >> 8 ) & 0xFF;
-  AppData.Buff[i++] = pressure & 0xFF;
-  AppData.Buff[i++] = ( temperature >> 8 ) & 0xFF;
-  AppData.Buff[i++] = temperature & 0xFF;
-  AppData.Buff[i++] = ( humidity >> 8 ) & 0xFF;
-  AppData.Buff[i++] = humidity & 0xFF;
-  AppData.Buff[i++] = batteryLevel;
-  AppData.Buff[i++] = 0;
-  AppData.Buff[i++] = 0;
-  AppData.Buff[i++] = 0;
+//  AppData.Buff[i++] = AppLedStateOn;
+//  AppData.Buff[i++] = ( pressure >> 8 ) & 0xFF;
+//  AppData.Buff[i++] = pressure & 0xFF;
+//  AppData.Buff[i++] = ( temperature >> 8 ) & 0xFF;
+//  AppData.Buff[i++] = temperature & 0xFF;
+//  AppData.Buff[i++] = ( humidity >> 8 ) & 0xFF;
+//  AppData.Buff[i++] = humidity & 0xFF;
+//  AppData.Buff[i++] = batteryLevel;
+//  AppData.Buff[i++] = 0;
+//  AppData.Buff[i++] = 0;
+//  AppData.Buff[i++] = 0;
+
+  AppData.Buff[i++] = 0x00; // 00 is moisture
+  AppData.Buff[i++] = cap_moistReading >> 8;
+  AppData.Buff[i++] = cap_moistReading & 0x00FF;
+
 #else  /* not REGION_XX915 */
   AppData.Buff[i++] = AppLedStateOn;
   AppData.Buff[i++] = ( pressure >> 8 ) & 0xFF;

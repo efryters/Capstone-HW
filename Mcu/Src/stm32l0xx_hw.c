@@ -37,6 +37,9 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include "bsp.h"
 #include "vcom.h"
 
+/* Sensor Includes */
+#include "Sensors/CapaciativeMoisture/cap_moisture.h"
+
 /*!
  *  \brief Unique Devices IDs register set ( STM32L0xxx )
  */
@@ -113,6 +116,8 @@ void HW_Init( void )
     TraceInit( );
     
     BSP_sensor_Init( );
+
+    cap_moist_init(&hadc);
 
     McuInitialized = true;
   }
