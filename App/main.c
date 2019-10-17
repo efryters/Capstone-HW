@@ -27,6 +27,7 @@
 #include "version.h"
 
 #include "Sensors/CapaciativeMoisture/cap_moisture.h"
+#include "Sensors/LightSensor/light_sensor.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -164,7 +165,8 @@ int main( void )
   
   /* Configure the hardware*/
   HW_Init();
-  
+
+ // MX_I2C1_Init();
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -263,8 +265,8 @@ static void Send( void* context )
 #endif
 
   BSP_sensor_Read( &sensor_data );
-  uint16_t cap_moistReading = HW_AdcReadChannel( ADC_CHANNEL_1 );
-
+  //uint16_t cap_moistReading = light_Read();
+  uint16_t cap_moistReading = light_Read();
 
 #ifdef CAYENNE_LPP
   uint8_t cchannel=0;
@@ -324,7 +326,7 @@ static void Send( void* context )
 //  AppData.Buff[i++] = 0;
 //  AppData.Buff[i++] = 0;
 
-  AppData.Buff[i++] = 0x00; // 00 is moisture
+  AppData.Buff[i++] = 0x02; // 00 is moisture
   AppData.Buff[i++] = cap_moistReading >> 8;
   AppData.Buff[i++] = cap_moistReading & 0x00FF;
 
