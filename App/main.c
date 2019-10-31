@@ -166,7 +166,7 @@ int main( void )
   /* Configure the hardware*/
   HW_Init();
 
- // MX_I2C1_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -265,7 +265,7 @@ static void Send( void* context )
 #endif
 
   BSP_sensor_Read( &sensor_data );
-  //uint16_t cap_moistReading = light_Read();
+
   uint16_t cap_moistReading = light_Read();
 
 #ifdef CAYENNE_LPP
