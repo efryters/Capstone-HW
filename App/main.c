@@ -175,9 +175,11 @@ int main( void )
   //LPM_SetOffMode(LPM_APPLI_Id , LPM_Disable );
   
   PRINTF("VERSION: %X\n\r", VERSION);
-  
-  uint16_t temp_val = light_Read();
-
+  uint16_t temp_val = 0;
+  while(1) {
+	  temp_val = light_Read();
+	  HAL_Delay(1);
+  }
   /* Configure the Lora Stack*/
   LORA_Init( &LoRaMainCallbacks, &LoRaParamInit);
   

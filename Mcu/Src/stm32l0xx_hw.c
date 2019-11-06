@@ -117,7 +117,7 @@ void HW_Init( void )
     
     BSP_sensor_Init( );
 
-    cap_moist_init(&hadc);
+    // cap_moist_init(&hadc);
 
     McuInitialized = true;
   }
@@ -228,8 +228,13 @@ void SystemClock_Config( void )
     Error_Handler();
   }
 
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_I2C1_CLK_ENABLE();
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C1;
+  	  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  	  {
+  		  Error_Handler();
+  	  }
 
 }
 /**
