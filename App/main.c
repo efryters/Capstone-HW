@@ -176,6 +176,8 @@ int main( void )
   
   PRINTF("VERSION: %X\n\r", VERSION);
   
+  uint16_t temp_val = light_Read();
+
   /* Configure the Lora Stack*/
   LORA_Init( &LoRaMainCallbacks, &LoRaParamInit);
   

@@ -227,6 +227,10 @@ void SystemClock_Config( void )
   {
     Error_Handler();
   }
+
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_I2C1_CLK_ENABLE();
+
 }
 /**
   * @brief This function return a random seed
