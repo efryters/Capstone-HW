@@ -113,6 +113,8 @@ void HW_Init( void )
 
     HW_RTC_Init( );
     
+    HW_I2C_Init();
+
     TraceInit( );
     
     BSP_sensor_Init( );

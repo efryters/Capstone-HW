@@ -29,6 +29,7 @@
 /* Sensor Includes */
 #include "Sensors/CapaciativeMoisture/cap_moisture.h"
 #include "Sensors/LightSensor/light_sensor.h"
+#include "Sensors/TemperatureSensor/temperature_sensor.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -60,7 +61,7 @@
 /*!
  * LoRaWAN default confirm state
  */
-#define LORAWAN_DEFAULT_CONFIRM_MSG_STATE           LORAWAN_CONFIRMED_MSG
+#define LORAWAN_DEFAULT_CONFIRM_MSG_STATE           LORAWAN_UNCONFIRMED_MSG
 /*!
  * User application data buffer size
  */
@@ -157,9 +158,11 @@ int main( void )
   
   /* Configure the hardware*/
   HW_Init();
+  temp_init();
 
-  MX_I2C1_Init();
+  //MX_I2C1_Init();
   /* USER CODE BEGIN 1 */
+
 
   /* USER CODE END 1 */
   
@@ -228,6 +231,7 @@ static void Send( void* context )
 {
   /* USER CODE BEGIN 3 */
   uint8_t batteryLevel;
+  uint16_t temperature = 0;
 
   
   if ( LORA_JoinStatus () != LORA_SET)
@@ -243,6 +247,8 @@ static void Send( void* context )
 
   /* Read Sensors */
   batteryLevel = HW_GetBatteryLevel( );                     /* 1 (very low) to 254 (fully charged) */
+  temperature = temp_read();
+
 
   AppData.Port = LORAWAN_APP_PORT;
 
@@ -250,9 +256,9 @@ static void Send( void* context )
 
   /* Fill the application data buffer with sensor data */
   uint32_t i = 0;
-  AppData.Buff[i++] = 0xff; 		// 00 is moisture, 01 for temperature, 02 for light
-  AppData.Buff[i++] = 0xff;			// Sensor data upper part
-  AppData.Buff[i++] = 0xff; 		// Sensor data lower part
+  AppData.Buff[i++] = 0x01; 		// 00 is moisture, 01 for temperature, 02 for light
+  AppData.Buff[i++] = (uint8_t) ((temperature >> 8) & 0x00FF);			// Sensor data upper part
+  AppData.Buff[i++] = (uint8_t) (temperature & 0x00FF); 		// Sensor data lower part
   AppData.Buff[i++] = batteryLevel;	// Battery level
 
   AppData.BuffSize = i;
