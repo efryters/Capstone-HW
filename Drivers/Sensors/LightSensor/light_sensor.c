@@ -53,3 +53,27 @@ uint16_t light_Read(void)
 		  rawL = buffer[0]<<4 | buffer[1]>>4;
 		  return rawL;
 }
+
+uint16_t light_Read_2(void)
+{
+
+	unsigned char bufferU[2];
+	unsigned char bufferL[2];
+	uint16_t rawL = 0;
+	uint8_t reg_AddrU = 0x03;
+	uint8_t reg_AddrL = 0x04;
+	static const uint8_t light_Addr = 0x4A << 1;
+
+	  bufferU[0] = 0x03;
+	  bufferL[0] = 0x04;
+	  HAL_I2C_Mem_Read(&hi2c1, light_Addr, reg_AddrU, I2C_MEMADD_SIZE_8BIT, bufferU, 1, 100 );
+	  HAL_Delay(20);
+	  HAL_I2C_Mem_Read(&hi2c1, light_Addr, reg_AddrL, I2C_MEMADD_SIZE_8BIT, bufferL, 1, 100 );
+	  //receive 2 bytes, store into buffer[0] and buffer[1]
+	 	  //buffer[0] : MSB data
+	 	  //buffer[1] : LSB data
+	  rawL = bufferU[0]<<4 | bufferL[0];
+	  return rawL;
+}
+
+

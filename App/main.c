@@ -176,10 +176,7 @@ int main( void )
   
   PRINTF("VERSION: %X\n\r", VERSION);
   uint16_t temp_val = 0;
-  while(1) {
-	  temp_val = light_Read();
-	  HAL_Delay(1);
-  }
+
   /* Configure the Lora Stack*/
   LORA_Init( &LoRaMainCallbacks, &LoRaParamInit);
   
@@ -270,7 +267,8 @@ static void Send( void* context )
 
   BSP_sensor_Read( &sensor_data );
 
-  uint16_t cap_moistReading = light_Read();
+  uint16_t cap_moistReading = light_Read_2();
+ // uint16_t luxV = light_Read_Lux();
 
 #ifdef CAYENNE_LPP
   uint8_t cchannel=0;
