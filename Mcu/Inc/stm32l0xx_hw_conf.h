@@ -61,6 +61,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #define RADIO_SCLK_PORT                           GPIOA
 #define RADIO_SCLK_PIN                            GPIO_PIN_5
 
+#ifndef PCB_FW_BUILD
 #define RADIO_NSS_PORT                            GPIOB
 #define RADIO_NSS_PIN                             GPIO_PIN_6
 
@@ -75,7 +76,22 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 #define RADIO_DIO_3_PORT                          GPIOB
 #define RADIO_DIO_3_PIN                           GPIO_PIN_4
+#else // PCB BUILD PINS OPT A
+#define RADIO_NSS_PORT                            GPIOA
+#define RADIO_NSS_PIN                             GPIO_PIN_4
 
+#define RADIO_DIO_0_PORT                          GPIOB
+#define RADIO_DIO_0_PIN                           GPIO_PIN_1
+
+#define RADIO_DIO_1_PORT                          GPIOB
+#define RADIO_DIO_1_PIN                           GPIO_PIN_0
+
+#define RADIO_DIO_2_PORT                          GPIOC
+#define RADIO_DIO_2_PIN                           GPIO_PIN_5
+
+#define RADIO_DIO_3_PORT                          GPIOC
+#define RADIO_DIO_3_PIN                           GPIO_PIN_4
+#endif
 #ifdef RADIO_DIO_4 
 #define RADIO_DIO_4_PORT                          GPIOA
 #define RADIO_DIO_4_PIN                           GPIO_PIN_9

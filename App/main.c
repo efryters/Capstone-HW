@@ -38,7 +38,7 @@
 /*!
  * Defines the application data transmission duty cycle. 5s, value in [ms].
  */
-#define APP_TX_DUTYCYCLE                            10000
+#define APP_TX_DUTYCYCLE                            5000
 /*!
  * LoRaWAN Adaptive Data Rate
  * @note Please note that when ADR is enabled the end-device should be static
@@ -158,9 +158,9 @@ int main( void )
   
   /* Configure the hardware*/
   HW_Init();
-  temp_init();
+  //temp_init();
 
-  MX_I2C1_Init();
+  //MX_I2C1_Init();
   /* USER CODE BEGIN 1 */
 
 
@@ -231,9 +231,9 @@ static void Send( void* context )
 {
   /* USER CODE BEGIN 3 */
   uint8_t batteryLevel;
-  uint16_t temperature = 0;
-  uint16_t moisture = 0;
-  uint16_t light = 0;
+  uint16_t temperature = 0xefef;
+  uint16_t moisture = 0xabcd;
+  uint16_t light = 0xfefe;
 
   
   if ( LORA_JoinStatus () != LORA_SET)
@@ -249,9 +249,9 @@ static void Send( void* context )
 
   /* Read Sensors */
   batteryLevel = HW_GetBatteryLevel( );                     /* 1 (very low) to 254 (fully charged) */
-  moisture = HW_AdcReadChannel(ADC_CHANNEL_1);
-  temperature = temp_read();
-  light = light_Read_2();
+  //moisture = HW_AdcReadChannel(ADC_CHANNEL_1);
+  //temperature = temp_read();
+  //light = light_Read_2();
 
 
   AppData.Port = LORAWAN_APP_PORT;
